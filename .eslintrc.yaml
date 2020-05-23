@@ -1,0 +1,33 @@
+env:
+  browser: true
+  es2020: true
+  jest: true
+  node: true
+extends:
+  - 'eslint:recommended'
+  - 'plugin:@typescript-eslint/eslint-recommended'
+  - 'prettier/@typescript-eslint'
+  - 'plugin:prettier/recommended'
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+plugins:
+  - '@typescript-eslint'
+  - 'prettier'
+rules:
+  no-prototype-builtins: off
+  no-dupe-keys: error
+  no-return-assign: warn
+  prettier/prettier:
+    - error
+    - singleQuote: true
+  no-console: 0
+  '@typescript-eslint/explicit-member-accessibility': 0
+  '@typescript-eslint/explicit-function-return-type': 0
+  '@typescript-eslint/consistent-type-definitions':
+    - error
+    - type

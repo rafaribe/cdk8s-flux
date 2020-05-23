@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-    
+
 jobs:
   build_artifact:
     name: Build and upload artifact

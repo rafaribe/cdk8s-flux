@@ -1,0 +1,256 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`minimal configuration 1`] = `
+Array [
+  Object {
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": Object {
+      "labels": Object {
+        "name": "flux",
+      },
+      "name": "flux",
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "ServiceAccount",
+    "metadata": Object {
+      "labels": Object {
+        "name": "flux",
+      },
+      "name": "flux",
+      "namespace": "flux",
+    },
+  },
+  Object {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "ClusterRole",
+    "metadata": Object {
+      "labels": Object {
+        "name": "flux",
+      },
+      "name": "flux",
+    },
+    "rules": Array [
+      Object {
+        "apiGroups": Array [
+          "*",
+        ],
+        "resources": Array [
+          "*",
+        ],
+        "verbs": Array [
+          "*",
+        ],
+      },
+      Object {
+        "nonResourceURLs": Array [
+          "*",
+        ],
+        "verbs": Array [
+          "*",
+        ],
+      },
+    ],
+  },
+  Object {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "ClusterRoleBinding",
+    "metadata": Object {
+      "labels": Object {
+        "name": "flux",
+      },
+      "name": "flux",
+    },
+    "roleRef": Object {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "ClusterRole",
+      "name": "flux",
+    },
+    "subjects": Array [
+      Object {
+        "kind": "ServiceAccount",
+        "name": "flux",
+        "namespace": "flux",
+      },
+    ],
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Secret",
+    "metadata": Object {
+      "name": "flux-git-deploy",
+      "namespace": "flux",
+    },
+    "type": "Opaque",
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "flux",
+      "namespace": "flux",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "name": "flux",
+        },
+      },
+      "strategy": Object {
+        "type": "Recreate",
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "name": "flux",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "args": Array [
+                "--memcached-service=",
+                "--ssh-keygen-dir=/etc/fluxd/keygen",
+                "--git-url=git@github.com:rafaribe/cdk8s-k3s-gitops.git",
+                "--git-branch=master",
+                "--git-path=cluster",
+                "--git-label=flux",
+                "--git-user=flux",
+                "--git-email=flux@rafaribe.com",
+                "--git-poll-interval=5m",
+                "--sync-garbage-collection",
+              ],
+              "image": "fluxcd/flux:1.19.0",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": Object {
+                "httpGet": Object {
+                  "path": "api/flux/v6/identity.pub",
+                  "port": 3030,
+                },
+                "initialDelaySeconds": 5,
+                "timeoutSeconds": 5,
+              },
+              "name": "flux",
+              "ports": Array [
+                Object {
+                  "containerPort": 3030,
+                },
+              ],
+              "readinessProbe": Object {
+                "httpGet": Object {
+                  "path": "api/flux/v6/identity.pub",
+                  "port": 3030,
+                },
+                "initialDelaySeconds": 5,
+                "timeoutSeconds": 5,
+              },
+              "resources": Object {
+                "limits": Object {
+                  "cpu": "150m",
+                  "memory": "256Mi",
+                },
+              },
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/etc/fluxd/ssh",
+                  "name": "git-key",
+                  "readOnly": true,
+                },
+                Object {
+                  "mountPath": "/etc/fluxd/keygen",
+                  "name": "git-keygen",
+                },
+              ],
+            },
+          ],
+          "serviceAccountName": "flux",
+          "volumes": Array [
+            Object {
+              "name": "git-key",
+              "secret": Object {
+                "defaultMode": 256,
+                "secretName": "flux-git-deploy",
+              },
+            },
+            Object {
+              "emptyDir": Object {
+                "medium": "Memory",
+              },
+              "name": "git-keygen",
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "memcached",
+      "namespace": "flux",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "name": "memcached",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "name": "memcached",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "args": Array [
+                "-m 512",
+                "-I 5m",
+                "-p 11211",
+              ],
+              "image": "memcached:undefined",
+              "name": "memcached",
+              "ports": Array [
+                Object {
+                  "containerPort": 11211,
+                  "name": "clients",
+                },
+              ],
+              "securityContext": Object {
+                "allowPrivilegeEscalation": false,
+                "runAsGroup": 11211,
+                "runAsUser": 11211,
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "memcached",
+      "namespace": "flux",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "memcached",
+          "port": 11211,
+        },
+      ],
+      "selector": Object {
+        "name": "memcached",
+      },
+    },
+  },
+]
+`;

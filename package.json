@@ -1,50 +1,80 @@
 {
-  "name": "jsii-library-template",
-  "version": "1.1.0",
-  "description": "Template for jsii libraries",
+  "name": "cdk8s-flux",
+  "version": "0.1.0",
+  "description": "cdk8s library ",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eladb/jsii-library-template.git"
+    "url": "https://github.com/rafaribe/cdk8s-flux.git"
   },
-  "author": "Elad Ben-Israel <benisrae@amazon.com>",
+  "author": "Rafael Ribeiro <rafael.ntw@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
+    "rmdist": "rm -rf node_modules && yarn install",
+    "lint": "eslint .",
+    "prettier": "prettier --write .",
+    "import": "cdk8s import",
+    "synth": "cdk8s synth",
     "compile": "jsii",
     "watch": "jsii -w",
-    "test": "echo ok",
+    "test": "tsc && jest",
     "compat": "npx jsii-diff npm:$(node -p \"require('./package.json').name\")",
     "package": "jsii-pacmak",
     "bump": "standard-version",
-    "build": "yarn compile && yarn test && yarn run package"
+    "build": "yarn compile && yarn test && yarn run package",
+    "upgrade": "npm i cdk8s@latest cdk8s-cli@latest",
+    "upgrade:next": "npm i cdk8s@next cdk8s-cli@next"
+  },
+  "dependencies": {
+    "cdk8s": "^0.21.0",
+    "constructs": "2.0.1"
+  },
+  "peerDependencies": {
+    "cdk8s": "^0.21.0",
+    "constructs": "2.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.5",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "babel-jest": "^25.5.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-with-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "jest": "^26.0.1",
     "jsii": "^1.5.0",
     "jsii-diff": "^1.5.0",
     "jsii-pacmak": "^1.5.0",
     "jsii-release": "^0.1.5",
-    "standard-version": "^8.0.0"
+    "prettier": "^2.0.5",
+    "prettier-eslint": "^9.0.1",
+    "standard-version": "^8.0.0",
+    "ts-jest": "^25.5.1"
   },
   "stability": "experimental",
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "moduleFileExtensions": [
+      "ts"
+    ]
+  },
   "jsii": {
     "outdir": "dist",
     "versionFormat": "full",
     "targets": {
-      "java": {
-        "package": "com.github.eladb.jsiilibrarytemplate",
-        "maven": {
-          "groupId": "com.github.eladb",
-          "artifactId": "jsii-library-template"
-        }
-      },
       "python": {
-        "distName": "jsii-library-template",
-        "module": "jsii_library_template"
-      },
-      "dotnet": {
-        "namespace": "Eladb.JsiiLibraryTemplate",
-        "packageId": "Elad.JsiiLibraryTemplate"
+        "distName": "cdk8s-flux",
+        "module": "cdk8s-flux"
       }
     }
   }

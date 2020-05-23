@@ -107,3 +107,4 @@ tsconfig.json
 .jsii
 *.d.ts
 *.js
+.idea
