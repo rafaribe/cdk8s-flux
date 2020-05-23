@@ -233,16 +233,21 @@ $ pip install cdk8s-flux
     yarn install # installs dependencies
     ```
 3. Development scripts:
-   |Command|Description
-   |-|-
-   |`yarn compile`|Compiles typescript => javascript
-   |`yarn watch`|Watch & compile
-   |`yarn test`|Run unit test & linter through jest
-   |`yarn test -u`|Update jest snapshots
-   |`yarn run package`|Creates a `dist` with packages for all languages.
-   |`yarn build`|Compile + test + package
-   |`yarn bump`|Bump version (with changelog) based on [conventional commits]
-   |`yarn release`|Bump + push to `master`
+
+  | Command            	| Description                                             	|
+  |--------------------	|---------------------------------------------------------	|
+  | `yarn compile`     	| Compiles jsii                                           	|
+  | `yarn watch`       	| Watch & compile                                         	|
+  | `yarn test`        	| Runs the jest unit tests                                	|
+  | `yarn test -u`     	| Updates jest snapshots                                  	|
+  | `yarn run package` 	| Outputs the `jsii` generated packages in TS and Python  	|
+  | `yarn build`       	| Compile + Test + Package                                	|
+  | `yarn bump`        	| Bumps version                                           	|
+  | `yarn release`     	| Bump + push to master                                   	|
+  | `yarn rmist`       	| Deletes node_modules and runs installs dependencies     	|
+  | `yarn lint`        	| Lint with eslinter                                      	|
+  | `yarn prettier`    	| Runs prettier and updates the files in place            	|
+  | `yarn run import`  	| cdk8s imports k8s and crds into the `imports` directory 	|
 4. Create a feature branch
 5. Commit your changes
 6. Rebase your local changes against the master branch

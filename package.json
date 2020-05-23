@@ -11,10 +11,10 @@
   "author": "Rafael Ribeiro <rafael.ntw@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "rmdist": "rm -rf node_modules && yarn install",
+    "rmist": "rm -rf node_modules && yarn install",
     "lint": "eslint .",
     "prettier": "prettier --write .",
-    "import": "cdk8s import",
+    "import": "cdk8s import -l typescript",
     "synth": "cdk8s synth",
     "compile": "jsii",
     "watch": "jsii -w",
