@@ -226,7 +226,7 @@ $ pip install cdk8s-flux
 
 ## Contribution
 
-1. Fork ([https://github.com/toricls/cdk8s-debore/fork](https://github.com/toricls/cdk8s-debore/fork))
+1. Fork ([https://github.com/rafaribe/cdk8s-flux/fork](https://github.com/rafaribe/cdk8s-flux/fork))
 2. Bootstrap the repo:
   
     ```bash

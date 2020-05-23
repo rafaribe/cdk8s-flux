@@ -214,7 +214,7 @@ Array [
                 "-I 5m",
                 "-p 11211",
               ],
-              "image": "memcached:undefined",
+              "image": "memcached:1.5.2",
               "name": "memcached",
               "ports": Array [
                 Object {

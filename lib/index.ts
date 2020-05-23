@@ -39,10 +39,6 @@ export interface FluxOptions {
    */
   readonly replicas?: number;
 
-  /**
-   * The tag for the memcached image
-   *  * @default 1.5.20
-   */
   readonly memcachedTag?: string;
 
   /**
@@ -63,6 +59,7 @@ export class Flux extends Construct {
     };
 
     const fluxPort = 3030;
+    const memcachedImageTag = options.memcachedTag ?? "1.5.2";
 
     new Namespace(this, options.ns, {
       metadata: {
@@ -221,7 +218,7 @@ export class Flux extends Construct {
             containers: [
               {
                 name: memcachedName,
-                image: 'memcached:' + options.memcachedTag,
+                image: 'memcached:' + memcachedImageTag,
                 args: ['-m 512', '-I 5m', '-p ' + memcachedPort],
                 ports: [
                   {
